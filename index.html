@@ -7,7 +7,7 @@
 <style>
     body {
         font-family: 'Segoe UI', Tahoma, sans-serif;
-        background: linear-gradient(180deg, #e9f5ff, #f8f9fa);
+        background: #ffffff; /* 纯白背景 */
         margin: 0;
         padding: 0;
         line-height: 1.6;
@@ -17,21 +17,41 @@
     header {
         background: linear-gradient(90deg, #0069d9, #004085);
         color: white;
-        padding: 30px 40px;
+        padding: 30px 260px; /* 左右边距加大 */
         box-shadow: 0 2px 12px rgba(0,0,0,0.3);
         text-align: center;
     }
     header h1 {
         margin: 0;
-        font-size: 32px;
+        font-size: 48px;
+    }
+    header h2 {
+        margin: 10px 0;
+        font-size: 24px;
     }
     header p {
-        margin: 5px 0;
+        margin: 10px 0;
         font-size: 15px;
+    }
+    /* Updates section */
+    .updates {
+        background: #f8f9fa;
+        text-align: center;
+        padding: 10px;
+        font-size: 15px;
+        border-bottom: 1px solid #ddd;
+    }
+    .updates a {
+        color: #0069d9;
+        font-weight: bold;
+        text-decoration: none;
+    }
+    .updates a:hover {
+        text-decoration: underline;
     }
     /* ===== Section ===== */
     section {
-        padding: 20px 40px;
+        padding: 20px 300px;
         margin-bottom: 20px;
         max-width: 1100px;
         margin-left: auto;
@@ -154,19 +174,18 @@
 <body>
 <header>
     <h1>OSWorld-MCP Benchmark Leaderboard</h1>
-    <p><strong>Paper:</strong> OSWorld-MCP: Benchmarking MCP Tool Invocation in Computer-Use Agents</p>
-    <p><strong>Authors:</strong> Hongrui Jia, Jitong Liao, Xi Zhang, Haiyang Xu*, Tianbao Xie, Chaoya Jiang, Ming Yan, Si Liu, Wei Ye, Fei Huang</p>
-    <div class="icon-links">
-        <!-- 论文链接 -->
-        <a href="https://arxiv.org/abs/2501.12345" target="_blank" title="Read the Paper">
-            <i class="fas fa-file-alt"></i>
-        </a>
-        <!-- GitHub 链接 -->
-        <a href="https://github.com/yourusername/osworld-mcp" target="_blank" title="View on GitHub">
-            <i class="fab fa-github"></i>
-        </a>
-    </div>
+    <h2>OSWorld-MCP: Benchmarking MCP Tool Invocation in Computer-Use Agents</h2>
+    <p><strong>Authors:</strong> Hongrui Jia², Jitong Liao¹, Xi Zhang¹, Haiyang Xu¹, Tianbao Xie¹, Chaoya Jiang², Ming Yan¹, Si Liu³, Wei Ye², Fei Huang¹</p>
+    <p><strong>Affiliations:</strong> ¹ Tongyi Lab, Alibaba Group · ² Peking University · ³ Beijing Zhongguancun Academy</p>
+    <!-- <div class="icon-links">
+        <a href="https://arxiv.org/abs/2501.12345" target="_blank" title=" TODO Read the Paper"><i class="fas fa-file-alt"></i></a>
+        <a href="https://github.com/yourusername/osworld-mcp" target="_blank" title="View on GitHub"><i class="fab fa-github"></i></a>
+    </div> -->
 </header>
+<div class="updates">
+    📢 <strong>2025-10-23:</strong> We released our paper and code!    TODO  
+    <i class="fas fa-file-alt"></i> <a href="https://arxiv.org/abs/2501.12345" target="_blank">Read the Paper</a> | <i class="fab fa-github"></i> <a href="https://os-world-mcp.github.io" target="_blank">View on GitHub</a>
+</div>
 <section>
     <h2>Abstract</h2>
     <p>
@@ -195,7 +214,7 @@
 <section>
     <div class="img-card">
         <img src="Fig6.png" alt="Tool Distribution">
-        <div class="img-caption">Figure 4: Tool distribution across software ecosystems</div>
+        <div class="img-caption">Figure 2: Tool distribution across software ecosystems</div>
     </div>
 </section>
 <section>
@@ -218,21 +237,21 @@
         </thead>
         <tbody>
             <!-- 15 steps -->
-            <tr data-step="15"><td></td><td>Agent-S2.5</td><td>15</td><td>42.8</td><td>28.2</td><td>10.2</td></tr>
-            <tr data-step="15"><td></td><td>Claude-4-Sonnet</td><td>15</td><td>38.9</td><td>31.9</td><td>10.6</td></tr>
-            <tr data-step="15"><td></td><td>Seed1.5-VL</td><td>15</td><td>34.8</td><td>24.4</td><td>10.2</td></tr>
-            <tr data-step="15"><td></td><td>Gemini-2.5-Pro</td><td>15</td><td>23.8</td><td>19.4</td><td>11.8</td></tr>
-            <tr data-step="15"><td></td><td>OpenAI o3</td><td>15</td><td>22.1</td><td>17.4</td><td>12.1</td></tr>
+            <tr data-step="15"><td></td><td>Agent-S2.5</td><td>15</td><td>42.1</td><td>30.0</td><td>10.0</td></tr>
+            <tr data-step="15"><td></td><td>Claude-4-Sonnet</td><td>15</td><td>35.3</td><td>30.0</td><td>10.4</td></tr>
+            <tr data-step="15"><td></td><td>Seed1.5-VL</td><td>15</td><td>32.0</td><td>25.1</td><td>10.2</td></tr>
+            <tr data-step="15"><td></td><td>Gemini-2.5-Pro</td><td>15</td><td>20.5</td><td>16.8</td><td>11.4</td></tr>
+            <tr data-step="15"><td></td><td>OpenAI o3</td><td>15</td><td>20.4</td><td>16.7</td><td>11.6</td></tr>
             <tr data-step="15"><td></td><td>Qwen3-VL</td><td>15</td><td>31.3</td><td>24.5</td><td>10.5</td></tr>
-            <tr data-step="15"><td></td><td>Qwen2.5-VL</td><td>15</td><td>13.7</td><td>13.3</td><td>13.7</td></tr>
+            <tr data-step="15"><td></td><td>Qwen2.5-VL</td><td>15</td><td>15.8</td><td>13.1</td><td>13.5</td></tr>
             <!-- 50 steps -->
-            <tr data-step="50"><td></td><td>Agent-S2.5</td><td>50</td><td>51.4</td><td>35.1</td><td>20.2</td></tr>
-            <tr data-step="50"><td></td><td>Claude-4-Sonnet</td><td>50</td><td>43.8</td><td>37.4</td><td>20.2</td></tr>
-            <tr data-step="50"><td></td><td>Seed1.5-VL</td><td>50</td><td>39.5</td><td>29.6</td><td>23.0</td></tr>
-            <tr data-step="50"><td></td><td>Gemini-2.5-Pro</td><td>50</td><td>26.9</td><td>29.9</td><td>12.3</td></tr>
-            <tr data-step="50"><td></td><td>OpenAI o3</td><td>50</td><td>23.8</td><td>32.3</td><td>12.0</td></tr>
+            <tr data-step="50"><td></td><td>Agent-S2.5</td><td>50</td><td>49.5</td><td>35.3</td><td>17.0</td></tr>
+            <tr data-step="50"><td></td><td>Claude-4-Sonnet</td><td>50</td><td>43.3</td><td>36.6</td><td>20.1</td></tr>
+            <tr data-step="50"><td></td><td>Seed1.5-VL</td><td>50</td><td>38.4</td><td>29.0</td><td>23.0</td></tr>
+            <tr data-step="50"><td></td><td>Gemini-2.5-Pro</td><td>50</td><td>27.2</td><td>21.5</td><td>29.7</td></tr>
+            <tr data-step="50"><td></td><td>OpenAI o3</td><td>50</td><td>25.2</td><td>21.0</td><td>32.1</td></tr>
             <tr data-step="15"><td></td><td>Qwen3-VL</td><td>50</td><td>39.1</td><td>29.5</td><td>21.1</td></tr>
-            <tr data-step="50"><td></td><td>Qwen2.5-VL</td><td>50</td><td>13.6</td><td>38.4</td><td>7.8</td></tr>
+            <tr data-step="50"><td></td><td>Qwen2.5-VL</td><td>50</td><td>14.8</td><td>10.9</td><td>37.2</td></tr>
         </tbody>
     </table>
     <p class="note">Click headers to sort, use buttons to filter results.</p>
