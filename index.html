@@ -138,6 +138,7 @@
         border-radius: 10px;
         overflow: hidden;
         box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        table-layout: fixed; /* 关键：固定列布局 */
     }
     th, td {
         padding: 12px;
@@ -148,6 +149,45 @@
         color: white;
         cursor: pointer;
     }
+    /* 固定列宽 */
+    th:nth-child(1), td:nth-child(1) {
+        width: 6%; /* Rank 列 */
+    }
+    th:nth-child(2), td:nth-child(2) {
+        width: 25%; /* Model 列 */
+    }
+    th:nth-child(3), td:nth-child(3) {
+        width: 20%; /* Steps 列 */
+    }
+    th:nth-child(4), td:nth-child(4) {
+        width: 15%; /* Accuracy 列加宽 */
+    }
+    th:nth-child(5), td:nth-child(5) {
+        width: 15%; /* TIR 列加宽 */
+    }
+    th:nth-child(6), td:nth-child(6) {
+        width: 15%; /* ACS 列加宽 */
+    }
+    td:nth-child(4) {
+        font-size: 16px;      /* 比默认稍大 */
+        color: #28a745;       /* 绿色，突出高准确度 */
+        font-weight: bold;
+    }
+
+    /* TIR 列 */
+    td:nth-child(5) {
+        font-size: 16px;
+        color: #ff9800;       /* 橙色，强调调用率 */
+        font-weight: bold;
+    }
+
+    /* ACS 列 */
+    td:nth-child(6) {
+        font-size: 16px;
+        color: #17a2b8;       /* 蓝绿色，代表平均完成步数 */
+        font-weight: bold;
+    }
+
     tr:nth-child(even) {background-color: #f8f9fa;}
     tr:hover {background-color: #e2f0ff;}
     .rank-icon {font-size: 18px;}
@@ -169,6 +209,58 @@
     .icon-links a:hover {
         color: #17a2b8; /* 鼠标悬停颜色 */
     }
+    /* Model info cell */
+    /* Model 列内容长的时候换行 */
+    .model-info {
+        text-align: left;
+        line-height: 1.4;
+        padding: 8px;
+        word-wrap: break-word;  /* 自动换行 */
+        overflow-wrap: break-word;
+        white-space: normal;
+    }
+
+    /* 如果要超长文字用省略号而不是换行，可以用下面替代：
+    .model-info {
+        text-align: left;
+        line-height: 1.4;
+        padding: 8px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    */
+    .model-name {
+        font-weight: bold;
+        font-size: 15px;
+        color: #004085;
+    }
+    .model-version {
+        font-size: 13px;
+        color: #555;
+    }
+    .model-company {
+        font-size: 13px;
+        color: #17a2b8;
+    }
+    .model-paper a {
+        font-size: 13px;
+        color: #0069d9;
+        text-decoration: none;
+    }
+    .model-paper a:hover {
+        text-decoration: underline;
+    }
+    .details-info {
+        text-align: left;
+        line-height: 1.4;
+        padding: 8px;
+    }
+
+    .detail-type, .detail-max, .detail-runs {
+        font-size: 13px;
+        color: #555;
+    }
 </style>
 </head>
 <body>
@@ -183,7 +275,7 @@
     </div> -->
 </header>
 <div class="updates">
-    📢 <strong>2025-10-28:</strong> We released our paper and code!   
+    📢 <strong>2025-10-23:</strong> We released our paper and code!   
     <i class="fas fa-file-alt"></i> <a href="https://arxiv.org/abs/2510.24563" target="_blank">Read the Paper</a> | <i class="fab fa-github"></i> <a href="https://github.com/X-PLUG/OSWorld-MCP" target="_blank">View on GitHub</a>
 </div>
 <section>
@@ -219,6 +311,16 @@
 </section>
 <section>
     <h2>Leaderboard (GUI + MCP)</h2>
+    <p style="margin-top:5px;">
+        We adopt state-of-the-art LLM and VLM from open-source representatives such as Agent-S, 
+        Qwen and closed-source ones from GPT, Gemini, and Claude families on OSWorld-MCP, 
+        as LLM and VLM agent baselines. Acc, TIR, and ACS denote the three evaluation metrics used in OSWorld-MCP: 
+        Task Accuracy, Tool Invocation Rate, and Average Completion Steps. 
+        To facilitate comparison of performance differences across models, 
+        we standardized our evaluation using the GUI-Owl agent configuration. 
+        This may lead to some performance fluctuations for certain models under the original OSWorld configuration. 
+        <strong>We are actively updating the benchmark with new LLMs, VLMs and methods. <a href="https://github.com/X-PLUG/OSWorld-MCP/pulls" target="_blank"> Pull requests welcomed!</a></strong>
+    </p>
     <div class="filter-buttons">
         <button class="active" data-filter="all">All</button>
         <button data-filter="15">15 Steps</button>
@@ -229,7 +331,7 @@
             <tr>
                 <th data-sort="rank">Rank</th>
                 <th data-sort="text">Model</th>
-                <th data-sort="number">Steps</th>
+                <th data-sort="text">Details</th>
                 <th data-sort="number">Accuracy</th>
                 <th data-sort="number">TIR</th>
                 <th data-sort="number">ACS</th>
@@ -237,21 +339,232 @@
         </thead>
         <tbody>
             <!-- 15 steps -->
-            <tr data-step="15"><td></td><td>Agent-S2.5</td><td>15</td><td>42.1</td><td>30.0</td><td>10.0</td></tr>
-            <tr data-step="15"><td></td><td>Claude-4-Sonnet</td><td>15</td><td>35.3</td><td>30.0</td><td>10.4</td></tr>
-            <tr data-step="15"><td></td><td>Seed1.5-VL</td><td>15</td><td>32.0</td><td>25.1</td><td>10.2</td></tr>
-            <tr data-step="15"><td></td><td>Gemini-2.5-Pro</td><td>15</td><td>20.5</td><td>16.8</td><td>11.4</td></tr>
-            <tr data-step="15"><td></td><td>OpenAI o3</td><td>15</td><td>20.4</td><td>16.7</td><td>11.6</td></tr>
-            <tr data-step="15"><td></td><td>Qwen3-VL</td><td>15</td><td>31.3</td><td>24.5</td><td>10.5</td></tr>
-            <tr data-step="15"><td></td><td>Qwen2.5-VL</td><td>15</td><td>15.8</td><td>13.1</td><td>13.5</td></tr>
+            <tr data-step="15">
+                <td></td>
+                <td>
+                    <div class="model-info">
+                        <div class="model-name">Agent-S2.5</div>
+                        <div class="model-version"> OpenAI o3 + UI-TARS-1.5-72B </div>
+                        <div class="model-company">Simular Research</div>
+                        <div class="model-paper"><a href="https://github.com/simular-ai/Agent-S" target="_blank"><i class="fas fa-file-alt"></i> Simular Research, '25</a></div>
+                    </div>
+                </td>
+                <td class="details-info">
+                    <div class="detail-type">Type: Agentic framework</div>
+                    <div class="detail-max">Max Steps: 15</div>
+                    <div class="detail-runs">Runs: 3</div>
+                </td>
+                <td>42.1</td><td>30.0</td><td>10.0</td>
+            </tr>
+            <tr data-step="15">
+                <td></td>
+                <td>
+                    <div class="model-info">
+                        <div class="model-name">Claude 4 Sonnet</div>
+                        <div class="model-version"> claude-sonnet-4-20250514-thinking </div>
+                        <div class="model-company">Anthropic</div>
+                        <div class="model-paper"><a href="https://www.anthropic.com/news/claude-4" target="_blank"><i class="fas fa-file-alt"></i> Anthropic, '25</a></div>
+                    </div>      
+                </td>
+                <td class="details-info">
+                    <div class="detail-type">Type: General model</div>
+                    <div class="detail-max">Max Steps: 15</div>
+                    <div class="detail-runs">Runs: 3</div>
+                </td><td>35.3</td><td>30.0</td><td>10.4</td>
+            </tr>
+            <tr data-step="15">
+                <td></td>
+                <td>
+                    <div class="model-info">
+                        <div class="model-name">Seed1.5-VL</div>
+                        <div class="model-version"> doubao-1-5-thinking-vision-pro-250428 </div>
+                        <div class="model-company">ByteDance Seed</div>
+                        <div class="model-paper"><a href="https://arxiv.org/abs/2505.07062" target="_blank"><i class="fas fa-file-alt"></i> ByteDance Seed, '25</a></div>
+                    </div>
+                </td>
+                <td class="details-info">
+                    <div class="detail-type">Type: General model</div>
+                    <div class="detail-max">Max Steps: 15</div>
+                    <div class="detail-runs">Runs: 3</div>
+                </td><td>32.0</td><td>25.1</td><td>10.2</td>
+            </tr>
+            <tr data-step="15">
+                <td></td>
+                <td>
+                    <div class="model-info">
+                        <div class="model-name">Gemini-2.5-Pro</div>
+                        <div class="model-version"> gemini-2.5-pro </div>
+                        <div class="model-company">Google DeepMind</div>
+                        <div class="model-paper"><a href="https://deepmind.google/models/gemini/pro" target="_blank"><i class="fas fa-file-alt"></i> Google DeepMind, '25</a></div>
+                    </div>
+                </td>
+                <td class="details-info">
+                    <div class="detail-type">Type: General model</div>
+                    <div class="detail-max">Max Steps: 15</div>
+                    <div class="detail-runs">Runs: 3</div>
+                </td><td>20.5</td><td>16.8</td><td>11.4</td>
+            </tr>
+            <tr data-step="15">
+                <td></td>
+                <td>
+                    <div class="model-info">
+                        <div class="model-name">OpenAI o3</div>
+                        <div class="model-version"> o3-2025-04-16 </div>
+                        <div class="model-company">OpenAI</div>
+                        <div class="model-paper"><a href="https://openai.com/index/introducing-o3-and-o4-mini" target="_blank"><i class="fas fa-file-alt"></i> OpenAI, '25</a></div>
+                    </div>
+                </td>
+                <td class="details-info">
+                    <div class="detail-type">Type: General model</div>
+                    <div class="detail-max">Max Steps: 15</div>
+                    <div class="detail-runs">Runs: 3</div>
+                </td><td>20.4</td><td>16.7</td><td>11.6</td>
+            </tr>
+            <tr data-step="15">
+                <td></td>
+                <td>
+                    <div class="model-info">
+                        <div class="model-name">Qwen3-VL</div>
+                        <div class="model-version"> qwen3-vl-plus </div>
+                        <div class="model-company">Alibaba Cloud, Qwen Team</div>
+                        <div class="model-paper"><a href="https://qwen.ai/blog?id=99f0335c4ad9ff6153e517418d48535ab6d8afef&from=research.latest-advancements-list" target="_blank"><i class="fas fa-file-alt"></i> Qwen Team, '25</a></div>
+                    </div>
+                </td>
+                <td class="details-info">
+                    <div class="detail-type">Type: General model</div>
+                    <div class="detail-max">Max Steps: 15</div>
+                    <div class="detail-runs">Runs: 3</div>
+                </td><td>31.3</td><td>24.5</td><td>10.5</td>
+            </tr>
+            <tr data-step="15">
+                <td></td>
+                <td>
+                    <div class="model-info">
+                        <div class="model-name">Qwen2.5-VL</div>
+                        <div class="model-version"> qwen2.5-vl-72b-instruct </div>
+                        <div class="model-company">Alibaba Cloud, Qwen Team</div>
+                        <div class="model-paper"><a href="https://qwenlm.github.io/blog/qwen2.5-vl" target="_blank"><i class="fas fa-file-alt"></i> Qwen Team, '25</a></div>
+                    </div>
+                </td>
+                <td class="details-info">
+                    <div class="detail-type">Type: General model</div>
+                    <div class="detail-max">Max Steps: 15</div>
+                    <div class="detail-runs">Runs: 3</div>
+                </td><td>15.8</td><td>13.1</td><td>13.5</td>
+            </tr>
             <!-- 50 steps -->
-            <tr data-step="50"><td></td><td>Agent-S2.5</td><td>50</td><td>49.5</td><td>35.3</td><td>17.0</td></tr>
-            <tr data-step="50"><td></td><td>Claude-4-Sonnet</td><td>50</td><td>43.3</td><td>36.6</td><td>20.1</td></tr>
-            <tr data-step="50"><td></td><td>Seed1.5-VL</td><td>50</td><td>38.4</td><td>29.0</td><td>23.0</td></tr>
-            <tr data-step="50"><td></td><td>Gemini-2.5-Pro</td><td>50</td><td>27.2</td><td>21.5</td><td>29.7</td></tr>
-            <tr data-step="50"><td></td><td>OpenAI o3</td><td>50</td><td>25.2</td><td>21.0</td><td>32.1</td></tr>
-            <tr data-step="15"><td></td><td>Qwen3-VL</td><td>50</td><td>39.1</td><td>29.5</td><td>21.1</td></tr>
-            <tr data-step="50"><td></td><td>Qwen2.5-VL</td><td>50</td><td>14.8</td><td>10.9</td><td>37.2</td></tr>
+            <tr data-step="50">
+                <td></td>
+                <td>
+                    <div class="model-info">
+                        <div class="model-name">Agent-S2.5</div>
+                        <div class="model-version"> OpenAI o3 + UI-TARS-1.5-72B </div>
+                        <div class="model-company">Simular Research</div>
+                        <div class="model-paper"><a href="https://github.com/simular-ai/Agent-S" target="_blank"><i class="fas fa-file-alt"></i> Simular Research, '25</a></div>
+                    </div>
+                </td>
+                <td class="details-info">
+                    <div class="detail-type">Type: Agentic framework</div>
+                    <div class="detail-max">Max Steps: 50</div>
+                    <div class="detail-runs">Runs: 3</div>
+                </td><td>49.5</td><td>35.3</td><td>17.0</td>
+            </tr>
+            <tr data-step="50">
+                <td></td>
+                <td>
+                    <div class="model-info">
+                        <div class="model-name">Claude 4 Sonnet</div>
+                        <div class="model-version"> claude-sonnet-4-20250514-thinking </div>
+                        <div class="model-company">Anthropic</div>
+                        <div class="model-paper"><a href="https://www.anthropic.com/news/claude-4" target="_blank"><i class="fas fa-file-alt"></i> Anthropic, '25</a></div>
+                    </div>
+                </td>
+                <td class="details-info">
+                    <div class="detail-type">Type: General model</div>
+                    <div class="detail-max">Max Steps: 50</div>
+                    <div class="detail-runs">Runs: 3</div>
+                </td><td>43.3</td><td>36.6</td><td>20.1</td>
+            </tr>
+            <tr data-step="50">
+                <td></td>
+                <td>
+                    <div class="model-info">
+                        <div class="model-name">Seed1.5-VL</div>
+                        <div class="model-version"> doubao-1-5-thinking-vision-pro-250428 </div>
+                        <div class="model-company">ByteDance Seed</div>
+                        <div class="model-paper"><a href="https://arxiv.org/abs/2505.07062" target="_blank"><i class="fas fa-file-alt"></i> ByteDance Seed, '25</a></div>
+                    </div>
+                </td>
+                <td class="details-info">
+                    <div class="detail-type">Type: General model</div>
+                    <div class="detail-max">Max Steps: 50</div>
+                    <div class="detail-runs">Runs: 3</div>
+                </td><td>38.4</td><td>29.0</td><td>23.0</td>
+            </tr>
+            <tr data-step="50">
+                <td></td>
+                <td>
+                    <div class="model-info">
+                        <div class="model-name">Gemini-2.5-Pro</div>
+                        <div class="model-version"> gemini-2.5-pro </div>
+                        <div class="model-company">Google DeepMind</div>
+                        <div class="model-paper"><a href="https://deepmind.google/models/gemini/pro" target="_blank"><i class="fas fa-file-alt"></i> Google DeepMind, '25</a></div>
+                    </div>
+                </td>
+                <td class="details-info">
+                    <div class="detail-type">Type: General model</div>
+                    <div class="detail-max">Max Steps: 50</div>
+                    <div class="detail-runs">Runs: 3</div>
+                </td><td>27.2</td><td>21.5</td><td>29.7</td>
+            </tr>
+            <tr data-step="50">
+                <td></td>
+                <td>
+                    <div class="model-info">
+                        <div class="model-name">OpenAI o3</div>
+                        <div class="model-version"> o3-2025-04-16 </div>
+                        <div class="model-company">OpenAI</div>
+                        <div class="model-paper"><a href="https://openai.com/index/introducing-o3-and-o4-mini" target="_blank"><i class="fas fa-file-alt"></i> OpenAI, '25</a></div>
+                    </div>
+                </td>
+                <td class="details-info">
+                    <div class="detail-type">Type: General model</div>
+                    <div class="detail-max">Max Steps: 50</div>
+                    <div class="detail-runs">Runs: 3</div>
+                </td><td>25.2</td><td>21.0</td><td>32.1</td>
+            </tr>
+            <tr data-step="50">
+                <td></td>
+                <td>
+                    <div class="model-info">
+                        <div class="model-name">Qwen3-VL</div>
+                        <div class="model-version"> qwen3-vl-plus </div>
+                        <div class="model-company">Alibaba Cloud, Qwen Team</div>
+                        <div class="model-paper"><a href="https://qwen.ai/blog?id=99f0335c4ad9ff6153e517418d48535ab6d8afef&from=research.latest-advancements-list" target="_blank"><i class="fas fa-file-alt"></i> Qwen Team, '25</a></div>
+                    </div>
+                </td>
+                <td class="details-info">
+                    <div class="detail-type">Type: General model</div>
+                    <div class="detail-max">Max Steps: 50</div>
+                    <div class="detail-runs">Runs: 3</div>
+                </td><td>39.1</td><td>29.5</td><td>21.1</td>
+            </tr>
+            <tr data-step="50">
+                <td></td>
+                <td>
+                    <div class="model-info">
+                        <div class="model-name">Qwen2.5-VL</div>
+                        <div class="model-version"> qwen2.5-vl-72b-instruct </div>
+                        <div class="model-company">Alibaba Cloud, Qwen Team</div>
+                        <div class="model-paper"><a href="https://qwenlm.github.io/blog/qwen2.5-vl" target="_blank"><i class="fas fa-file-alt"></i> Qwen Team, '25</a></div>
+                    </div>
+                </td>
+                <td class="details-info">
+                    <div class="detail-type">Type: General model</div>
+                    <div class="detail-max">Max Steps: 50</div>
+                    <div class="detail-runs">Runs: 3</div>
+                </td><td>14.8</td><td>10.9</td><td>37.2</td>
+            </tr>
         </tbody>
     </table>
     <p class="note">Click headers to sort, use buttons to filter results.</p>
@@ -294,8 +607,13 @@ function sortTable(colIndex) {
         let A = a.cells[colIndex].innerText;
         let B = b.cells[colIndex].innerText;
         if (sortType === "number") {
-            return parseFloat(B) - parseFloat(A); // 默认降序
-        } else {
+            if (colIndex === 5) {  // ACS 列索引是 5
+                return parseFloat(A) - parseFloat(B); // 升序
+            } else {
+                return parseFloat(B) - parseFloat(A); // 降序
+            }
+        }
+        else {
             return A.localeCompare(B);
         }
     });
