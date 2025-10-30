@@ -257,17 +257,36 @@
         padding: 8px;
     }
 
-    .detail-type, .detail-max, .detail-runs {
+    .detail-type, .detail-max, .detail-runs, .detail-prompt {
         font-size: 13px;
         color: #555;
     }
+    .filter-steps, .filter-prompts {
+        text-align: center;
+        margin-bottom: 15px;
+    }
+    .filter-prompts button {
+        background: #17a2b8;
+        border: none;
+        color: white;
+        padding: 8px 15px;
+        margin: 0 5px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s;
+        font-weight: bold;
+    }
+    .filter-prompts button:hover, .filter-prompts button.active {
+        background: #0069d9;
+    }
+
 </style>
 </head>
 <body>
 <header>
     <h1>OSWorld-MCP Benchmark Leaderboard</h1>
     <h2>OSWorld-MCP: Benchmarking MCP Tool Invocation in Computer-Use Agents</h2>
-    <p><strong>Authors:</strong> Hongrui Jia<sup>2,†</sup>, Jitong Liao<sup>1,†</sup>, Xi Zhang<sup>1,†</sup>, Haiyang Xu1<sup>1,*</sup>, Tianbao Xie<sup>1</sup>, Chaoya Jiang<sup>2</sup>, Ming Yan<sup>1,*</sup>, Si Liu<sup>3</sup>, Wei Ye<sup>2</sup>, Fei Huang<sup>1</sup></p>
+    <p><strong>Authors:</strong> Hongrui Jia<sup>2,†</sup>, Jitong Liao<sup>1,†</sup>, Xi Zhang<sup>1,†</sup>, Haiyang Xu<sup>1,*</sup>, Tianbao Xie<sup>1</sup>, Chaoya Jiang<sup>2</sup>, Ming Yan<sup>1,*</sup>, Si Liu<sup>3</sup>, Wei Ye<sup>2</sup>, Fei Huang<sup>1</sup></p>
     <p><strong>Affiliations:</strong> <sup>1</sup> Tongyi Lab, Alibaba Group · <sup>2</sup> Peking University · <sup>3</sup> Beijing Zhongguancun Academy</p>
     <!-- <div class="icon-links">
         <a href="" target="_blank" title=" Read the Paper"><i class="fas fa-file-alt"></i></a>
@@ -320,11 +339,20 @@
         we standardized our evaluation using the GUI-Owl agent configuration. 
         This may lead to some performance fluctuations for certain models under the original OSWorld configuration. 
         <strong>We are actively updating the benchmark with new LLMs, VLMs and methods. <a href="https://github.com/X-PLUG/OSWorld-MCP/pulls" target="_blank"> Pull requests welcomed!</a></strong>
+        Please submit the invocation method and evaluation scripts. For more information, you can contact jiahongrui@stu.pku.edu.cn, shuofeng.xhy@alibaba-inc.com, and zx443053@alibaba-inc.com.
     </p>
-    <div class="filter-buttons">
-        <button class="active" data-filter="all">All</button>
-        <button data-filter="15">15 Steps</button>
-        <button data-filter="50">50 Steps</button>
+    <div class="filter-steps">
+        <label for="stepSelect">Filter by Max Steps:</label>
+        <select id="stepSelect">
+            <option value="all">All</option>
+            <option value="15">15 Steps</option>
+            <option value="50">50 Steps</option>
+        </select>
+    </div>
+    <div class="filter-prompts">
+        <button class="active" data-prompt="all">All Prompts</button>
+        <button data-prompt="common">Common Prompt</button>
+        <button data-prompt="specific">Specific Prompt</button>
     </div>
     <table id="leaderboard">
         <thead>
@@ -349,10 +377,10 @@
                         <div class="model-paper"><a href="https://github.com/simular-ai/Agent-S" target="_blank"><i class="fas fa-file-alt"></i> Simular Research, '25</a></div>
                     </div>
                 </td>
-                <td class="details-info">
+                <td class="details-info" data-prompt="common">
                     <div class="detail-type">Type: Agentic framework</div>
                     <div class="detail-max">Max Steps: 15</div>
-                    <div class="detail-runs">Runs: 3</div>
+                    <div class="detail-runs">Runs: 3</div><div class="detail-prompt">Prompt: common prompt</div>
                 </td>
                 <td>42.1</td><td>30.0</td><td>10.0</td>
             </tr>
@@ -366,10 +394,10 @@
                         <div class="model-paper"><a href="https://www.anthropic.com/news/claude-4" target="_blank"><i class="fas fa-file-alt"></i> Anthropic, '25</a></div>
                     </div>      
                 </td>
-                <td class="details-info">
+                <td class="details-info" data-prompt="common">
                     <div class="detail-type">Type: General model</div>
                     <div class="detail-max">Max Steps: 15</div>
-                    <div class="detail-runs">Runs: 3</div>
+                    <div class="detail-runs">Runs: 3</div><div class="detail-prompt">Prompt: common prompt</div>
                 </td><td>35.3</td><td>30.0</td><td>10.4</td>
             </tr>
             <tr data-step="15">
@@ -382,10 +410,10 @@
                         <div class="model-paper"><a href="https://arxiv.org/abs/2505.07062" target="_blank"><i class="fas fa-file-alt"></i> ByteDance Seed, '25</a></div>
                     </div>
                 </td>
-                <td class="details-info">
+                <td class="details-info" data-prompt="common">
                     <div class="detail-type">Type: General model</div>
                     <div class="detail-max">Max Steps: 15</div>
-                    <div class="detail-runs">Runs: 3</div>
+                    <div class="detail-runs">Runs: 3</div><div class="detail-prompt">Prompt: common prompt</div>
                 </td><td>32.0</td><td>25.1</td><td>10.2</td>
             </tr>
             <tr data-step="15">
@@ -398,10 +426,10 @@
                         <div class="model-paper"><a href="https://deepmind.google/models/gemini/pro" target="_blank"><i class="fas fa-file-alt"></i> Google DeepMind, '25</a></div>
                     </div>
                 </td>
-                <td class="details-info">
+                <td class="details-info" data-prompt="common">
                     <div class="detail-type">Type: General model</div>
                     <div class="detail-max">Max Steps: 15</div>
-                    <div class="detail-runs">Runs: 3</div>
+                    <div class="detail-runs">Runs: 3</div><div class="detail-prompt">Prompt: common prompt</div>
                 </td><td>20.5</td><td>16.8</td><td>11.4</td>
             </tr>
             <tr data-step="15">
@@ -414,10 +442,10 @@
                         <div class="model-paper"><a href="https://openai.com/index/introducing-o3-and-o4-mini" target="_blank"><i class="fas fa-file-alt"></i> OpenAI, '25</a></div>
                     </div>
                 </td>
-                <td class="details-info">
+                <td class="details-info" data-prompt="common">
                     <div class="detail-type">Type: General model</div>
                     <div class="detail-max">Max Steps: 15</div>
-                    <div class="detail-runs">Runs: 3</div>
+                    <div class="detail-runs">Runs: 3</div><div class="detail-prompt">Prompt: common prompt</div>
                 </td><td>20.4</td><td>16.7</td><td>11.6</td>
             </tr>
             <tr data-step="15">
@@ -425,15 +453,15 @@
                 <td>
                     <div class="model-info">
                         <div class="model-name">Qwen3-VL</div>
-                        <div class="model-version"> qwen3-vl-plus </div>
+                        <div class="model-version"> qwen3-vl-235b-a22b-thinking  </div>
                         <div class="model-company">Alibaba Cloud, Qwen Team</div>
                         <div class="model-paper"><a href="https://qwen.ai/blog?id=99f0335c4ad9ff6153e517418d48535ab6d8afef&from=research.latest-advancements-list" target="_blank"><i class="fas fa-file-alt"></i> Qwen Team, '25</a></div>
                     </div>
                 </td>
-                <td class="details-info">
+                <td class="details-info" data-prompt="common">
                     <div class="detail-type">Type: General model</div>
                     <div class="detail-max">Max Steps: 15</div>
-                    <div class="detail-runs">Runs: 3</div>
+                    <div class="detail-runs">Runs: 3</div><div class="detail-prompt">Prompt: common prompt</div>
                 </td><td>31.3</td><td>24.5</td><td>10.5</td>
             </tr>
             <tr data-step="15">
@@ -446,10 +474,10 @@
                         <div class="model-paper"><a href="https://qwenlm.github.io/blog/qwen2.5-vl" target="_blank"><i class="fas fa-file-alt"></i> Qwen Team, '25</a></div>
                     </div>
                 </td>
-                <td class="details-info">
+                <td class="details-info" data-prompt="common">
                     <div class="detail-type">Type: General model</div>
                     <div class="detail-max">Max Steps: 15</div>
-                    <div class="detail-runs">Runs: 3</div>
+                    <div class="detail-runs">Runs: 3</div><div class="detail-prompt">Prompt: common prompt</div>
                 </td><td>15.8</td><td>13.1</td><td>13.5</td>
             </tr>
             <!-- 50 steps -->
@@ -463,10 +491,10 @@
                         <div class="model-paper"><a href="https://github.com/simular-ai/Agent-S" target="_blank"><i class="fas fa-file-alt"></i> Simular Research, '25</a></div>
                     </div>
                 </td>
-                <td class="details-info">
+                <td class="details-info" data-prompt="common">
                     <div class="detail-type">Type: Agentic framework</div>
                     <div class="detail-max">Max Steps: 50</div>
-                    <div class="detail-runs">Runs: 3</div>
+                    <div class="detail-runs">Runs: 3</div><div class="detail-prompt">Prompt: common prompt</div>
                 </td><td>49.5</td><td>35.3</td><td>17.0</td>
             </tr>
             <tr data-step="50">
@@ -479,10 +507,10 @@
                         <div class="model-paper"><a href="https://www.anthropic.com/news/claude-4" target="_blank"><i class="fas fa-file-alt"></i> Anthropic, '25</a></div>
                     </div>
                 </td>
-                <td class="details-info">
+                <td class="details-info" data-prompt="common">
                     <div class="detail-type">Type: General model</div>
                     <div class="detail-max">Max Steps: 50</div>
-                    <div class="detail-runs">Runs: 3</div>
+                    <div class="detail-runs">Runs: 3</div><div class="detail-prompt">Prompt: common prompt</div>
                 </td><td>43.3</td><td>36.6</td><td>20.1</td>
             </tr>
             <tr data-step="50">
@@ -495,10 +523,10 @@
                         <div class="model-paper"><a href="https://arxiv.org/abs/2505.07062" target="_blank"><i class="fas fa-file-alt"></i> ByteDance Seed, '25</a></div>
                     </div>
                 </td>
-                <td class="details-info">
+                <td class="details-info" data-prompt="common">
                     <div class="detail-type">Type: General model</div>
                     <div class="detail-max">Max Steps: 50</div>
-                    <div class="detail-runs">Runs: 3</div>
+                    <div class="detail-runs">Runs: 3</div><div class="detail-prompt">Prompt: common prompt</div>
                 </td><td>38.4</td><td>29.0</td><td>23.0</td>
             </tr>
             <tr data-step="50">
@@ -511,10 +539,10 @@
                         <div class="model-paper"><a href="https://deepmind.google/models/gemini/pro" target="_blank"><i class="fas fa-file-alt"></i> Google DeepMind, '25</a></div>
                     </div>
                 </td>
-                <td class="details-info">
+                <td class="details-info" data-prompt="common">
                     <div class="detail-type">Type: General model</div>
                     <div class="detail-max">Max Steps: 50</div>
-                    <div class="detail-runs">Runs: 3</div>
+                    <div class="detail-runs">Runs: 3</div><div class="detail-prompt">Prompt: common prompt</div>
                 </td><td>27.2</td><td>21.5</td><td>29.7</td>
             </tr>
             <tr data-step="50">
@@ -527,10 +555,10 @@
                         <div class="model-paper"><a href="https://openai.com/index/introducing-o3-and-o4-mini" target="_blank"><i class="fas fa-file-alt"></i> OpenAI, '25</a></div>
                     </div>
                 </td>
-                <td class="details-info">
+                <td class="details-info" data-prompt="common">
                     <div class="detail-type">Type: General model</div>
                     <div class="detail-max">Max Steps: 50</div>
-                    <div class="detail-runs">Runs: 3</div>
+                    <div class="detail-runs">Runs: 3</div><div class="detail-prompt">Prompt: common prompt</div>
                 </td><td>25.2</td><td>21.0</td><td>32.1</td>
             </tr>
             <tr data-step="50">
@@ -538,15 +566,15 @@
                 <td>
                     <div class="model-info">
                         <div class="model-name">Qwen3-VL</div>
-                        <div class="model-version"> qwen3-vl-plus </div>
+                        <div class="model-version"> qwen3-vl-235b-a22b-thinking  </div>
                         <div class="model-company">Alibaba Cloud, Qwen Team</div>
                         <div class="model-paper"><a href="https://qwen.ai/blog?id=99f0335c4ad9ff6153e517418d48535ab6d8afef&from=research.latest-advancements-list" target="_blank"><i class="fas fa-file-alt"></i> Qwen Team, '25</a></div>
                     </div>
                 </td>
-                <td class="details-info">
+                <td class="details-info" data-prompt="common">
                     <div class="detail-type">Type: General model</div>
                     <div class="detail-max">Max Steps: 50</div>
-                    <div class="detail-runs">Runs: 3</div>
+                    <div class="detail-runs">Runs: 3</div><div class="detail-prompt">Prompt: common prompt</div>
                 </td><td>39.1</td><td>29.5</td><td>21.1</td>
             </tr>
             <tr data-step="50">
@@ -559,16 +587,82 @@
                         <div class="model-paper"><a href="https://qwenlm.github.io/blog/qwen2.5-vl" target="_blank"><i class="fas fa-file-alt"></i> Qwen Team, '25</a></div>
                     </div>
                 </td>
-                <td class="details-info">
+                <td class="details-info" data-prompt="common">
                     <div class="detail-type">Type: General model</div>
                     <div class="detail-max">Max Steps: 50</div>
-                    <div class="detail-runs">Runs: 3</div>
+                    <div class="detail-runs">Runs: 3</div><div class="detail-prompt">Prompt: common prompt</div>
                 </td><td>14.8</td><td>10.9</td><td>37.2</td>
             </tr>
         </tbody>
     </table>
     <p class="note">Click headers to sort, use buttons to filter results.</p>
 </section>
+<!-- <script>
+function updateRanks() {
+    const visibleRows = Array.from(document.querySelectorAll("#leaderboard tbody tr"))
+        .filter(r => r.style.display !== "none");
+    visibleRows.forEach((row, idx) => {
+        if (idx === 0) row.cells[0].innerHTML = "🥇";
+        else if (idx === 1) row.cells[0].innerHTML = "🥈";
+        else if (idx === 2) row.cells[0].innerHTML = "🥉";
+        else row.cells[0].innerHTML = idx + 1;
+    });
+}
+
+function applyFilters() {
+    const stepFilter = document.getElementById("stepSelect").value;
+    const promptFilter = document.querySelector(".filter-prompts button.active").dataset.prompt;
+    const rows = document.querySelectorAll("#leaderboard tbody tr");
+
+    rows.forEach(r => {
+        const stepMatch = (stepFilter === "all" || r.getAttribute("data-step") === stepFilter);
+        const promptMatch = (promptFilter === "all" || r.querySelector(".details-info").dataset.prompt === promptFilter);
+        if (stepMatch && promptMatch) {
+            r.style.display = "";
+        } else {
+            r.style.display = "none";
+        }
+    });
+    sortTable(3); // Accuracy排序
+}
+
+
+function sortTable(colIndex) {
+    const table = document.getElementById("leaderboard");
+    const tbody = table.tBodies[0];
+    const sortType = table.tHead.rows[0].cells[colIndex].dataset.sort;
+    let rows = Array.from(tbody.querySelectorAll("tr")).filter(r => r.style.display !== "none");
+    rows.sort((a, b) => {
+        let A = a.cells[colIndex].innerText;
+        let B = b.cells[colIndex].innerText;
+        if (sortType === "number") {
+            if (colIndex === 5) { // ACS列升序
+                return parseFloat(A) - parseFloat(B);
+            } else {
+                return parseFloat(B) - parseFloat(A);
+            }
+        } else {
+            return A.localeCompare(B);
+        }
+    });
+    rows.forEach(r => tbody.appendChild(r));
+    updateRanks();
+}
+
+document.getElementById("stepSelect").addEventListener("change", applyFilters);
+document.querySelectorAll(".filter-prompts button").forEach(btn => {
+    btn.addEventListener("click", function(){
+        document.querySelectorAll(".filter-prompts button").forEach(b => b.classList.remove("active"));
+        this.classList.add("active");
+        applyFilters();
+    });
+});
+
+window.onload = () => {
+    sortTable(3);
+    applyFilters();
+};
+</script> -->
 <script>
 function updateRanks() {
     const visibleRows = Array.from(document.querySelectorAll("#leaderboard tbody tr"))
@@ -580,62 +674,71 @@ function updateRanks() {
         else row.cells[0].innerHTML = idx + 1;
     });
 }
-function filterSteps(step) {
+
+function applyFilters() {
+    const stepFilter = document.getElementById("stepSelect").value;
+    const promptFilter = document.querySelector(".filter-prompts button.active").dataset.prompt;
     const rows = document.querySelectorAll("#leaderboard tbody tr");
+
     rows.forEach(r => {
-        r.classList.add("fade-out");
-        setTimeout(() => {
-            if (step === "all" || r.getAttribute("data-step") === step) {
-                r.style.display = "";
-            } else {
-                r.style.display = "none";
-            }
-            r.classList.remove("fade-out");
-            r.classList.add("fade-in");
-        }, 300);
+        const stepMatch = (stepFilter === "all" || r.getAttribute("data-step") === stepFilter);
+        const promptMatch = (promptFilter === "all" || r.querySelector(".details-info").dataset.prompt === promptFilter);
+        if (stepMatch && promptMatch) {
+            r.style.display = "";
+        } else {
+            r.style.display = "none";
+        }
     });
-    setTimeout(() => {
-        sortTable(3); // 每次切换后按 Accuracy 排序
-    }, 350);
+    sortTable(3); // 默认按 Accuracy 排序
 }
+
 function sortTable(colIndex) {
     const table = document.getElementById("leaderboard");
     const tbody = table.tBodies[0];
     const sortType = table.tHead.rows[0].cells[colIndex].dataset.sort;
     let rows = Array.from(tbody.querySelectorAll("tr")).filter(r => r.style.display !== "none");
+
     rows.sort((a, b) => {
         let A = a.cells[colIndex].innerText;
         let B = b.cells[colIndex].innerText;
         if (sortType === "number") {
-            if (colIndex === 5) {  // ACS 列索引是 5
-                return parseFloat(A) - parseFloat(B); // 升序
+            if (colIndex === 5) { // ACS 列升序
+                return parseFloat(A) - parseFloat(B);
             } else {
-                return parseFloat(B) - parseFloat(A); // 降序
+                return parseFloat(B) - parseFloat(A); // 其他数值列降序
             }
-        }
-        else {
-            return A.localeCompare(B);
+        } else {
+            return A.localeCompare(B); // 文本列
         }
     });
+
     rows.forEach(r => tbody.appendChild(r));
     updateRanks();
 }
-// 按钮事件
-document.querySelectorAll(".filter-buttons button").forEach(btn => {
+
+// ===== 绑定事件 =====
+document.getElementById("stepSelect").addEventListener("change", applyFilters);
+
+document.querySelectorAll(".filter-prompts button").forEach(btn => {
     btn.addEventListener("click", function(){
-        document.querySelectorAll(".filter-buttons button").forEach(b => b.classList.remove("active"));
+        document.querySelectorAll(".filter-prompts button").forEach(b => b.classList.remove("active"));
         this.classList.add("active");
-        filterSteps(this.getAttribute("data-filter"));
+        applyFilters();
     });
 });
-// 表头点击事件
+
+// ✅ 新增：表头点击事件绑定
 document.querySelectorAll("#leaderboard thead th").forEach((th, i) => {
-    th.addEventListener("click", () => sortTable(i));
+    th.addEventListener("click", function() {
+        sortTable(i);
+    });
 });
-// 页面初始化：默认按 Accuracy 排序
+
 window.onload = () => {
-    sortTable(3); // Accuracy在第4列（索引3）
+    applyFilters(); // 先应用筛选
+    sortTable(3);   // 再按 Accuracy 排序
 };
 </script>
+
 </body>
 </html>
