@@ -279,7 +279,39 @@
     .filter-prompts button:hover, .filter-prompts button.active {
         background: #0069d9;
     }
-
+    .info-card {
+        background: #f8f9fa;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        padding: 15px 20px;
+        margin-top: 15px;
+        font-size: 15px;
+        line-height: 1.6;
+    }
+    .info-card .highlight {
+        background-color: #e7f1ff;
+        padding: 2px 4px;
+        border-radius: 4px;
+        font-weight: bold;
+        color: #004085;
+    }
+    .info-card hr {
+        border: 0;
+        border-top: 1px solid #ddd;
+        margin: 10px 0;
+    }
+    .info-card a {
+        color: #0069d9;
+        font-weight: bold;
+        text-decoration: none;
+    }
+    .info-card a:hover {
+        text-decoration: underline;
+    }
+    .info-card .contact {
+        color: #555;
+        font-family: 'Courier New', monospace;
+    }
 </style>
 </head>
 <body>
@@ -298,7 +330,7 @@
     <i class="fas fa-file-alt"></i> <a href="https://arxiv.org/abs/2510.24563" target="_blank">Read the Paper</a> | <i class="fab fa-github"></i> <a href="https://github.com/X-PLUG/OSWorld-MCP" target="_blank">View on GitHub</a>
 </div>
 <section>
-    <h2>Abstract</h2>
+    <h2><i class="fa-solid fa-book-open"></i> Abstract</h2>
     <p>
         With advances in decision-making and reasoning capabilities, multimodal agents have shown strong potential in computer application scenarios.
         Past evaluations mainly assessed GUI interaction skills, while tool invocation abilities enabled by the Model Context Protocol (MCP) have been largely overlooked.
@@ -313,13 +345,13 @@
     </div>
 </section>
 <section>
-    <h2>Highlights</h2>
+    <h2><i class="fa-solid fa-star"> </i>Highlights</h2>
     <ul>
-        <li>First benchmark integrating GUI + MCP evaluation in realistic OS environments.</li>
-        <li>158 curated high-quality MCP tools covering 7 common applications.</li>
-        <li>New metrics: Accuracy, Tool Invocation Rate (TIR), Average Completion Steps (ACS).</li>
-        <li>MCP tools improved success rate up to +15.7% accuracy in some cases.</li>
-        <li>Positive relationship between TIR and accuracy validates benchmark challenge.</li>
+        <li><i class="fa-solid fa-check-circle" style="color:#17a2b8;"></i> First benchmark integrating GUI + MCP evaluation in realistic OS environments.</li>
+        <li><i class="fa-solid fa-toolbox" style="color:#ff9800;"></i> 158 curated high-quality MCP tools covering 7 common applications.</li>
+        <li><i class="fa-solid fa-chart-line" style="color:#28a745;"></i> New metrics: Accuracy, Tool Invocation Rate (TIR), Average Completion Steps (ACS).</li>
+        <li><i class="fa-solid fa-arrow-up" style="color:#28a745;"></i> MCP tools improved success rate up to +15.7% accuracy in some cases.</li>
+        <li><i class="fa-solid fa-link" style="color:#555;"></i> Positive relationship between TIR and accuracy validates benchmark challenge.</li>
     </ul>
 </section>
 <section>
@@ -329,8 +361,8 @@
     </div>
 </section>
 <section>
-    <h2>Leaderboard (GUI + MCP)</h2>
-    <p style="margin-top:5px;">
+    <h2><i class="fa-solid fa-ranking-star"></i> Leaderboard (GUI + MCP)</h2>
+    <!-- <p style="margin-top:5px;">
         We adopt state-of-the-art LLM and VLM from open-source representatives such as Agent-S, 
         Qwen and closed-source ones from GPT, Gemini, and Claude families on OSWorld-MCP, 
         as LLM and VLM agent baselines. Acc, TIR, and ACS denote the three evaluation metrics used in OSWorld-MCP: 
@@ -345,7 +377,42 @@
     <p style="margin-top:5px;">
         <strong>We are actively updating the benchmark with new LLMs, VLMs and methods. <a href="https://github.com/X-PLUG/OSWorld-MCP/pulls" target="_blank"> Pull requests welcomed!</a></strong>
         Please submit the invocation method and evaluation scripts. For more information, you can contact jiahongrui@stu.pku.edu.cn, shuofeng.xhy@alibaba-inc.com, and zx443053@alibaba-inc.com.
-    </p>
+    </p> -->
+    <div class="info-card">
+        <p>
+            <i class="fa-solid fa-robot" style="color:#0069d9;"></i>
+            We adopt state-of-the-art <strong>LLM</strong> and <strong>VLM</strong> from open-source representatives such as 
+            <span class="highlight">Agent-S</span>, <span class="highlight">Qwen</span> 
+            and closed-source ones from <span class="highlight">GPT</span>, <span class="highlight">Gemini</span>, and <span class="highlight">Claude</span> families on OSWorld-MCP,
+            as LLM and VLM agent baselines.
+            <br>
+            <i class="fa-solid fa-chart-line" style="color:#28a745;"></i>
+            <strong>Acc</strong>, <strong>TIR</strong>, and <strong>ACS</strong> denote the three evaluation metrics: 
+            <em>Task Accuracy</em>, <em>Tool Invocation Rate</em>, and <em>Average Completion Steps</em>.
+        </p>
+        <hr>
+        <p>
+            <i class="fa-solid fa-layer-group" style="color:#17a2b8;"></i>
+            <strong>Unified Prompt:</strong> To facilitate comparison of performance differences across models, 
+            we standardized our evaluation using the <span class="highlight">GUI-Owl</span> agent configuration. 
+            This may lead to some performance fluctuations for certain models under their original OSWorld configuration.
+        </p>
+        <p>
+            <i class="fa-solid fa-sliders" style="color:#ff9800;"></i>
+            <strong>Specific Prompt:</strong> Each model adopts its own unique configuration for OSWorld-MCP evaluation.
+        </p>
+        <hr>
+        <p>
+            <i class="fa-solid fa-sync" style="color:#0069d9;"></i>
+            <strong>We are actively updating</strong> the benchmark with new LLMs, VLMs and methods. Please submit the invocation method and evaluation scripts.
+            <a href="https://github.com/X-PLUG/OSWorld-MCP/pulls" target="_blank"><i class="fa-solid fa-handshake"></i> Pull requests welcomed!</a> 
+            <br>
+            <i class="fa-solid fa-envelope" style="color:#555;"></i> For more information, contact: 
+            <span class="contact">jiahongrui@stu.pku.edu.cn</span>, 
+            <span class="contact">shuofeng.xhy@alibaba-inc.com</span>, 
+            <span class="contact">zx443053@alibaba-inc.com</span>.
+        </p>
+    </div>
     <div class="filter-steps">
         <label for="stepSelect">Filter by Max Steps:</label>
         <select id="stepSelect">
@@ -363,12 +430,12 @@
     <table id="leaderboard">
         <thead>
             <tr>
-                <th data-sort="rank">Rank</th>
-                <th data-sort="text">Model</th>
-                <th data-sort="text">Details</th>
-                <th data-sort="number">Accuracy</th>
-                <th data-sort="number">TIR</th>
-                <th data-sort="number">ACS</th>
+                <th data-sort="rank"><i class="fa-solid fa-medal"></i> Rank</th>
+                <th data-sort="text"><i class="fa-solid fa-robot"></i> Model</th>
+                <th data-sort="text"><i class="fa-solid fa-info-circle"></i> Details</th>
+                <th data-sort="number"><i class="fa-solid fa-bullseye"></i> Acc</th>
+                <th data-sort="number"><i class="fa-solid fa-plug"></i> TIR</th>
+                <th data-sort="number"><i class="fa-solid fa-shoe-prints"></i> ACS</th>
             </tr>
         </thead>
         <tbody>
