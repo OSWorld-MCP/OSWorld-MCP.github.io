@@ -283,16 +283,16 @@
 </style>
 </head>
 <body>
-<header>
-    <h1>OSWorld-MCP Benchmark Leaderboard</h1>
-    <h2>OSWorld-MCP: Benchmarking MCP Tool Invocation in Computer-Use Agents</h2>
-    <p><strong>Authors:</strong> Hongrui Jia<sup>2,†</sup>, Jitong Liao<sup>1,†</sup>, Xi Zhang<sup>1,†</sup>, Haiyang Xu<sup>1,*</sup>, Tianbao Xie<sup>1</sup>, Chaoya Jiang<sup>2</sup>, Ming Yan<sup>1,*</sup>, Si Liu<sup>3</sup>, Wei Ye<sup>2</sup>, Fei Huang<sup>1</sup></p>
-    <p><strong>Affiliations:</strong> <sup>1</sup> Tongyi Lab, Alibaba Group · <sup>2</sup> Peking University · <sup>3</sup> Beijing Zhongguancun Academy</p>
-    <!-- <div class="icon-links">
-        <a href="" target="_blank" title=" Read the Paper"><i class="fas fa-file-alt"></i></a>
-        <a href="https://github.com/X-PLUG/OSWorld-MCP" target="_blank" title="View on GitHub"><i class="fab fa-github"></i></a>
-    </div> -->
-</header>
+    <header>
+        <h1>OSWorld-MCP Benchmark Leaderboard</h1>
+        <h2>OSWorld-MCP: Benchmarking MCP Tool Invocation in Computer-Use Agents</h2>
+        <p><strong>Authors:</strong> Hongrui Jia<sup>2,†</sup>, Jitong Liao<sup>1,†</sup>, Xi Zhang<sup>1,†</sup>, Haiyang Xu<sup>1,*</sup>, Tianbao Xie<sup>1</sup>, Chaoya Jiang<sup>2</sup>, Ming Yan<sup>1,*</sup>, Si Liu<sup>3</sup>, Wei Ye<sup>2</sup>, Fei Huang<sup>1</sup></p>
+        <p><strong>Affiliations:</strong> <sup>1</sup> Tongyi Lab, Alibaba Group · <sup>2</sup> Peking University · <sup>3</sup> Beijing Zhongguancun Academy</p>
+        <!-- <div class="icon-links">
+            <a href="" target="_blank" title=" Read the Paper"><i class="fas fa-file-alt"></i></a>
+            <a href="https://github.com/X-PLUG/OSWorld-MCP" target="_blank" title="View on GitHub"><i class="fab fa-github"></i></a>
+        </div> -->
+    </header>
 <div class="updates">
     📢 <strong>2025-10-23:</strong> We released our paper and code!   
     <i class="fas fa-file-alt"></i> <a href="https://arxiv.org/abs/2510.24563" target="_blank">Read the Paper</a> | <i class="fab fa-github"></i> <a href="https://github.com/X-PLUG/OSWorld-MCP" target="_blank">View on GitHub</a>
@@ -335,9 +335,14 @@
         Qwen and closed-source ones from GPT, Gemini, and Claude families on OSWorld-MCP, 
         as LLM and VLM agent baselines. Acc, TIR, and ACS denote the three evaluation metrics used in OSWorld-MCP: 
         Task Accuracy, Tool Invocation Rate, and Average Completion Steps. 
-        To facilitate comparison of performance differences across models, 
-        we standardized our evaluation using the GUI-Owl agent configuration. 
-        This may lead to some performance fluctuations for certain models under the original OSWorld configuration. 
+    </p>
+    <p style="margin-top:5px;">
+        <strong>Unified Prompt:</strong> To facilitate comparison of performance differences across models, we standardized our evaluation using the GUI-Owl agent configuration. This may lead to some performance fluctuations for certain models under their original OSWorld configuration.
+    </p>
+    <p>
+        <strong>Specific Prompt:</strong> Each model adopts its own unique configuration for OSWorld-MCP evaluation.
+    </p>
+    <p style="margin-top:5px;">
         <strong>We are actively updating the benchmark with new LLMs, VLMs and methods. <a href="https://github.com/X-PLUG/OSWorld-MCP/pulls" target="_blank"> Pull requests welcomed!</a></strong>
         Please submit the invocation method and evaluation scripts. For more information, you can contact jiahongrui@stu.pku.edu.cn, shuofeng.xhy@alibaba-inc.com, and zx443053@alibaba-inc.com.
     </p>
@@ -347,11 +352,12 @@
             <option value="all">All</option>
             <option value="15">15 Steps</option>
             <option value="50">50 Steps</option>
+            <option value="100">100 Steps</option>
         </select>
     </div>
     <div class="filter-prompts">
         <button class="active" data-prompt="all">All Prompts</button>
-        <button data-prompt="common">Common Prompt</button>
+        <button data-prompt="common">Unified Prompt</button>
         <button data-prompt="specific">Specific Prompt</button>
     </div>
     <table id="leaderboard">
@@ -380,7 +386,7 @@
                 <td class="details-info" data-prompt="common">
                     <div class="detail-type">Type: Agentic framework</div>
                     <div class="detail-max">Max Steps: 15</div>
-                    <div class="detail-runs">Runs: 3</div><div class="detail-prompt">Prompt: common prompt</div>
+                    <div class="detail-runs">Runs: 3</div><div class="detail-prompt">Prompt: unified prompt</div>
                 </td>
                 <td>42.1</td><td>30.0</td><td>10.0</td>
             </tr>
@@ -397,7 +403,7 @@
                 <td class="details-info" data-prompt="common">
                     <div class="detail-type">Type: General model</div>
                     <div class="detail-max">Max Steps: 15</div>
-                    <div class="detail-runs">Runs: 3</div><div class="detail-prompt">Prompt: common prompt</div>
+                    <div class="detail-runs">Runs: 3</div><div class="detail-prompt">Prompt: unified prompt</div>
                 </td><td>35.3</td><td>30.0</td><td>10.4</td>
             </tr>
             <tr data-step="15">
@@ -413,7 +419,7 @@
                 <td class="details-info" data-prompt="common">
                     <div class="detail-type">Type: General model</div>
                     <div class="detail-max">Max Steps: 15</div>
-                    <div class="detail-runs">Runs: 3</div><div class="detail-prompt">Prompt: common prompt</div>
+                    <div class="detail-runs">Runs: 3</div><div class="detail-prompt">Prompt: unified prompt</div>
                 </td><td>32.0</td><td>25.1</td><td>10.2</td>
             </tr>
             <tr data-step="15">
@@ -429,7 +435,7 @@
                 <td class="details-info" data-prompt="common">
                     <div class="detail-type">Type: General model</div>
                     <div class="detail-max">Max Steps: 15</div>
-                    <div class="detail-runs">Runs: 3</div><div class="detail-prompt">Prompt: common prompt</div>
+                    <div class="detail-runs">Runs: 3</div><div class="detail-prompt">Prompt: unified prompt</div>
                 </td><td>20.5</td><td>16.8</td><td>11.4</td>
             </tr>
             <tr data-step="15">
@@ -445,7 +451,7 @@
                 <td class="details-info" data-prompt="common">
                     <div class="detail-type">Type: General model</div>
                     <div class="detail-max">Max Steps: 15</div>
-                    <div class="detail-runs">Runs: 3</div><div class="detail-prompt">Prompt: common prompt</div>
+                    <div class="detail-runs">Runs: 3</div><div class="detail-prompt">Prompt: unified prompt</div>
                 </td><td>20.4</td><td>16.7</td><td>11.6</td>
             </tr>
             <tr data-step="15">
@@ -461,7 +467,7 @@
                 <td class="details-info" data-prompt="common">
                     <div class="detail-type">Type: General model</div>
                     <div class="detail-max">Max Steps: 15</div>
-                    <div class="detail-runs">Runs: 3</div><div class="detail-prompt">Prompt: common prompt</div>
+                    <div class="detail-runs">Runs: 3</div><div class="detail-prompt">Prompt: unified prompt</div>
                 </td><td>31.3</td><td>24.5</td><td>10.5</td>
             </tr>
             <tr data-step="15">
@@ -477,7 +483,7 @@
                 <td class="details-info" data-prompt="common">
                     <div class="detail-type">Type: General model</div>
                     <div class="detail-max">Max Steps: 15</div>
-                    <div class="detail-runs">Runs: 3</div><div class="detail-prompt">Prompt: common prompt</div>
+                    <div class="detail-runs">Runs: 3</div><div class="detail-prompt">Prompt: unified prompt</div>
                 </td><td>15.8</td><td>13.1</td><td>13.5</td>
             </tr>
             <!-- 50 steps -->
@@ -494,7 +500,7 @@
                 <td class="details-info" data-prompt="common">
                     <div class="detail-type">Type: Agentic framework</div>
                     <div class="detail-max">Max Steps: 50</div>
-                    <div class="detail-runs">Runs: 3</div><div class="detail-prompt">Prompt: common prompt</div>
+                    <div class="detail-runs">Runs: 3</div><div class="detail-prompt">Prompt: unified prompt</div>
                 </td><td>49.5</td><td>35.3</td><td>17.0</td>
             </tr>
             <tr data-step="50">
@@ -510,7 +516,7 @@
                 <td class="details-info" data-prompt="common">
                     <div class="detail-type">Type: General model</div>
                     <div class="detail-max">Max Steps: 50</div>
-                    <div class="detail-runs">Runs: 3</div><div class="detail-prompt">Prompt: common prompt</div>
+                    <div class="detail-runs">Runs: 3</div><div class="detail-prompt">Prompt: unified prompt</div>
                 </td><td>43.3</td><td>36.6</td><td>20.1</td>
             </tr>
             <tr data-step="50">
@@ -526,7 +532,7 @@
                 <td class="details-info" data-prompt="common">
                     <div class="detail-type">Type: General model</div>
                     <div class="detail-max">Max Steps: 50</div>
-                    <div class="detail-runs">Runs: 3</div><div class="detail-prompt">Prompt: common prompt</div>
+                    <div class="detail-runs">Runs: 3</div><div class="detail-prompt">Prompt: unified prompt</div>
                 </td><td>38.4</td><td>29.0</td><td>23.0</td>
             </tr>
             <tr data-step="50">
@@ -542,7 +548,7 @@
                 <td class="details-info" data-prompt="common">
                     <div class="detail-type">Type: General model</div>
                     <div class="detail-max">Max Steps: 50</div>
-                    <div class="detail-runs">Runs: 3</div><div class="detail-prompt">Prompt: common prompt</div>
+                    <div class="detail-runs">Runs: 3</div><div class="detail-prompt">Prompt: unified prompt</div>
                 </td><td>27.2</td><td>21.5</td><td>29.7</td>
             </tr>
             <tr data-step="50">
@@ -558,7 +564,7 @@
                 <td class="details-info" data-prompt="common">
                     <div class="detail-type">Type: General model</div>
                     <div class="detail-max">Max Steps: 50</div>
-                    <div class="detail-runs">Runs: 3</div><div class="detail-prompt">Prompt: common prompt</div>
+                    <div class="detail-runs">Runs: 3</div><div class="detail-prompt">Prompt: unified prompt</div>
                 </td><td>25.2</td><td>21.0</td><td>32.1</td>
             </tr>
             <tr data-step="50">
@@ -574,7 +580,7 @@
                 <td class="details-info" data-prompt="common">
                     <div class="detail-type">Type: General model</div>
                     <div class="detail-max">Max Steps: 50</div>
-                    <div class="detail-runs">Runs: 3</div><div class="detail-prompt">Prompt: common prompt</div>
+                    <div class="detail-runs">Runs: 3</div><div class="detail-prompt">Prompt: unified prompt</div>
                 </td><td>39.1</td><td>29.5</td><td>21.1</td>
             </tr>
             <tr data-step="50">
@@ -590,7 +596,7 @@
                 <td class="details-info" data-prompt="common">
                     <div class="detail-type">Type: General model</div>
                     <div class="detail-max">Max Steps: 50</div>
-                    <div class="detail-runs">Runs: 3</div><div class="detail-prompt">Prompt: common prompt</div>
+                    <div class="detail-runs">Runs: 3</div><div class="detail-prompt">Prompt: unified prompt</div>
                 </td><td>14.8</td><td>10.9</td><td>37.2</td>
             </tr>
         </tbody>
